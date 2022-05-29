@@ -17,12 +17,15 @@ function getElements(response) {
   if(response.bikes) {
     const allBikes = response.bikes;
 
-    //let bikearray = [];
+
+  
     allBikes.forEach(function(bike) {
       $('.showDescription').append(`This bikes description is ${bike.description}, `);
       $('.showLocation').append(`The bike was last seen at ${bike.stolen_location}, `);
       $('.showManufacturer').append(`The bike is manufactured by ${bike.manufacturer_name}, `);
       $('.showErrors').append("");
+
+
     });   
   } else {
       $('.showErrors').text(`There was an error: ${response.message}`);
