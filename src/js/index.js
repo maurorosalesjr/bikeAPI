@@ -53,3 +53,5 @@ $(document).ready(function() {
     });
   });
 });
+
+///just adding this so i can commit a change to fix my last git commit, if you read this please delete after 5/29
