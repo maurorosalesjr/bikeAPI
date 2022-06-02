@@ -2,25 +2,19 @@ import $ from 'jquery';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './../css/styles.css';
-import StolenBike from './bike.js';
+import {StolenBike} from './bike.js';
 
 function clearFields() {
   $('#location').val("");
   $('.showErrors').text("");
   $('.showDescription').text("");
-  $('.showLocation').text("");
-  $('.showManufacturer').text("");
 }
 
-function getElements(response) {
-    
+function getElements(response) { 
   if(response.bikes) {
     const allBikes = response.bikes;
-
     let bikeArray = ["Desc", "Local", "Manu", "thumb"];
-
-    $('.showDescription').text(bikesorter(bikeArray, allBikes)); 
-    //console.log(bikesorter(bikearray, allBikes));
+    $('.showDescription').html(bikesorter(bikeArray, allBikes)); 
   } else {
       $('.showErrors').text(`There was an error: ${response.message}`);
   }
@@ -35,17 +29,16 @@ function bikesorter (bikeArray, allBikes)
     bikeArray[1] = (allBikes[i].stolen_location);
     bikeArray[2] = (allBikes[i].manufacturer_name); 
     bikeArray[3] = (allBikes[i].thumb);
-    bikeFacts += ("This bikes description is " + bikeArray[0] + " \n" + "The bike was stolen at " + bikeArray[1] + " \n" + "The bike is manufactured by " + bikeArray[2] + "\n" + `<img src='${bikeArray[3]}'>`  + " \n\n");
+    bikeFacts += ("<p>This bikes description is</p>" + bikeArray[0] + " \n" + "<p>The bike was stolen at</p> " + bikeArray[1] + " \n" + "<p>The bike is manufactured by</p> " + bikeArray[2] + "\n" + `<img src="${bikeArray[3]}" alt="picture of a stolen bike"/>` + " \n\n" );
 
   }
   return bikeFacts;
 }  
   
-
 $(document).ready(function() {
-  $('#bikeLocation').click(function(){
+  $('#city').click(function(event){ 
+    event.preventDefault();
     let city = $('#location').val();
-    console.log(city);
     clearFields();
     StolenBike.getBike(city)
     .then(function(response){
@@ -54,4 +47,3 @@ $(document).ready(function() {
   });
 });
 
-///just adding this so i can commit a change to fix my last git commit, if you read this please delete after 5/29
